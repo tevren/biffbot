@@ -1,6 +1,6 @@
 include 'httparty'
 module Biffbot
-	class Base << self
+	class Base 
 		def parse(token,url,options={})
 			@token = token
 			@url = url
