@@ -1,6 +1,6 @@
 # Biffbot
 
-TODO: Write a gem description
+Ruby gem to connect to diffbot's article api
 
 ## Installation
 
@@ -18,7 +18,20 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Usage example:
+
+	biff = Biffbot::Base.new("your developer token")
+	article = biff.parse("the url you want to parse",options)
+
+You can use the options hash to set the following: tags, stats, dontStripAds, comments, summary, html
+
+example:
+
+	options = Hash.new
+	options[:tags] = true
+	options[:stats] = true
+	biff = Biffbot::Base.new("your developer token")
+	article = biff.parse("the url you want to parse",options)
 
 ## Contributing
 

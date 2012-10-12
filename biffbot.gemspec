@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["anurag@columbia.edu"]
   gem.description   = "Ruby gem to connect to diffbot's article api"
   gem.summary       = "Given a url, pulls article content using diffbot's article extractor"
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/tevren/biffbot"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
