@@ -1,8 +1,10 @@
 require 'httparty'
 module Biffbot
-	class Base 
-		def parse(token,url,options={})
+	class Base
+		def initialize(token) 
 			@token = token
+		end
+		def parse(url,options={})
 			@url = url
 			output = Hash.new
 			request = "http://www.diffbot.com/api/article?token=#{@token}&url=#{@url}"
