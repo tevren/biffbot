@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.name          = "biffbot"
   gem.version       = Biffbot::VERSION
   gem.authors       = ["Anurag Mohanty"]
-  gem.email         = ["anurag@columbia.edu"]
+  gem.email         = ["tevren@gmail.com"]
   gem.description   = "Ruby gem to connect to diffbot's article api"
   gem.summary       = "Given a url, pulls article content using diffbot's article extractor"
   gem.homepage      = "https://github.com/tevren/biffbot"
