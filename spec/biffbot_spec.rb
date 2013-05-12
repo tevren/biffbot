@@ -14,7 +14,8 @@ describe Biffbot do
   
 	describe "#batch" do
 		it "not nil" do
-		  @biffbot.batch("http://www.huffingtonpost.ca/2012/10/11/amanda-todd-teen-bullying-suicide-youtube_n_1959668.html", "http://www.nytimes.com/2013/02/08/business/asset-sales-help-quarterly-profit-at-times-company.html").size.should == 2
+			articles = ["http://www.huffingtonpost.ca/2012/10/11/amanda-todd-teen-bullying-suicide-youtube_n_1959668.html", "http://www.nytimes.com/2013/02/08/business/asset-sales-help-quarterly-profit-at-times-company.html"]
+			@biffbot.batch(articles).size.should == 2
 		end
 	end
 end
