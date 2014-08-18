@@ -18,5 +18,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.add_dependency("httparty")
   gem.add_dependency("json", "~> 1.7.7")
+  gem.add_dependency("hashie", "~> 2.0.5")
   gem.add_development_dependency("rspec")
 end

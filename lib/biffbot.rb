@@ -1,12 +1,20 @@
 require "biffbot/version"
+require "biffbot/analyze"
+require "biffbot/article"
 require "biffbot/base"
+require "biffbot/batch"
+require "biffbot/bulk"
+require "biffbot/crawl"
+require "biffbot/custom"
+require "biffbot/frontpage"
+require "biffbot/image"
+require "biffbot/product"
+
 module Biffbot
-  # Your code goes here...
   def self.reset!
     @token = nil
   end
   class << self
 	#Your Diffbot API token.
-    attr_accessor :token
   end
 end
