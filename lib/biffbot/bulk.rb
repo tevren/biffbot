@@ -29,44 +29,25 @@ module Biffbot
       post_body
     end
 
-    def pause name
-      endpoint = "http://api.diffbot.com/v3/bulk/?token=#{@token}&name=#{name}&pause=1"
-      JSON.parse(HTTParty.get(endpoint).body).each_pair do |key, value|
-        self[key] = value
-      end
-    end
-
-    def unpause name
-      endpoint = "http://api.diffbot.com/v3/bulk/?token=#{@token}&name=#{name}&pause=0"
-      JSON.parse(HTTParty.get(endpoint).body).each_pair do |key, value|
-        self[key] = value
-      end
-    end
-
-    def restart name
-      endpoint = "http://api.diffbot.com/v3/bulk/?token=#{@token}&name=#{name}&restart=1"
-      JSON.parse(HTTParty.get(endpoint).body).each_pair do |key, value|
-        self[key] = value
-      end
-    end
-
-    def delete name
-      endpoint = "http://api.diffbot.com/v3/bulk/?token=#{@token}&name=#{name}&delete=1"
-      JSON.parse(HTTParty.get(endpoint).body).each_pair do |key, value|
-        self[key] = value
+    %w(pause unpause restart delete view).each do |method_name|
+      define_method method_name do |name|
+        case method_name
+        when 'pause', 'restart', 'delete'
+          endpoint = "http://api.diffbot.com/v3/bulk/?token=#{@token}&name=#{name}&#{method_name}=1"
+        when 'unpause'
+          endpoint = "http://api.diffbot.com/v3/bulk/?token=#{@token}&name=#{name}&#{method_name}=0"
+        when 'view'
+          endpoint = "http://api.diffbot.com/v3/bulk/?token=#{@token}&name=#{name}"
+        end
+        JSON.parse(HTTParty.get(endpoint).body).each_pair do |key, value|
+          self[key] = value
+        end       
       end
     end
 
     def retrieve_data jobName, _options = {}
       # TODO: add support for csv
       endpoint = "http://api.diffbot.com/v3/bulk/download/#{@token}-#{jobName}_data.json"
-      JSON.parse(HTTParty.get(endpoint).body).each_pair do |key, value|
-        self[key] = value
-      end
-    end
-
-    def view name
-      endpoint = "http://api.diffbot.com/v3/bulk/?token=#{@token}&name=#{name}"
       JSON.parse(HTTParty.get(endpoint).body).each_pair do |key, value|
         self[key] = value
       end
