@@ -20,6 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency('json', '~> 1.8')
   gem.add_dependency('hashie', '~> 3.3')
   gem.add_development_dependency('rspec')
+  gem.add_development_dependency('rake')
   gem.add_development_dependency('rubocop')
   gem.add_development_dependency('dotenv')
 end
