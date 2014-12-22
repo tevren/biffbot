@@ -1,6 +1,6 @@
 # Biffbot
 
-Ruby gem to connect to diffbot's article api
+Ruby gem to connect to diffbot's APIs
 
 ## Installation
 
@@ -19,19 +19,40 @@ Or install it yourself as:
 ## Usage
 
 Usage example:
+OLD DEPCRECATED METHOD: 
 
-	biff = Biffbot::Base.new("your developer token")
+    require 'biffbot'
+    token = YOUR_DEVELOPER_TOKEN
+	biff = Biffbot::Base.new(token)
 	article = biff.parse("the url you want to parse",options)
 
-You can use the options hash to set the following: tags, stats, dontStripAds, comments, summary, html
+NEW METHOD: 
 
-example:
+    require 'biffbot'
+    token = YOUR_DEVELOPER_TOKEN
+    analyze = Biffbot::Analyze.new(token, url, {:type => 'article'})
+    article = Biffbot::Article.new(@token,url,some_hash_of_options)
 
-	options = Hash.new
-	options[:tags] = true
-	options[:stats] = true
-	biff = Biffbot::Base.new("your developer token")
-	article = biff.parse("the url you want to parse",options)
+
+The available classes are: 
+* Biffbot::Analyze
+* Biffbot::Article
+* Biffbot::Image
+* Biffbot::Product
+* Untested Classes (I don't have a paid account)
+
+    * Biffbot::Bulk
+    * Biffbot::Custom
+
+## Testing
+
+1. create a .env file in the following format:
+
+        DIFFBOT_DEV_TOKEN=YOUR_DIFFBOT_TOKEN
+
+2. run the tests via rake
+
+        rake test
 
 ## Contributing
 
