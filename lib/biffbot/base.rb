@@ -22,10 +22,9 @@ module Biffbot
     # generate an url consisting of your api key and the endpoint you'd like to use
     #
     # @param url [String] The url to pass to diffbot
-    # @param options [Hash] An hash of options
     # @param token [String] Diffbot API token
     # @param type [String] API to use
-    # @return url [String] a formatted url with your api key, endpoint and input url
+    # @return [String] a formatted url with your api key, endpoint and input url
     def generate_url url, token, type, version
       case type
       when 'analyze'
@@ -43,7 +42,7 @@ module Biffbot
     #
     # @param options [Hash] An hash of options
     # @param request [String] The url to append options to
-    # @return url [String] a formatted url with options merged into the input url
+    # @return [String] a formatted url with options merged into the input url
     def parse_options options = {}, request = ''
       options.each do |opt, value|
         case opt

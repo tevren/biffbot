@@ -8,7 +8,7 @@ module Biffbot
     # @param token [String] Override Biffbot.token with another token
     # @return [Hash]
     # @example
-    # Biffbot::Article('http://www.nytimes.com', timeout: 60) => {SOME_HASH}
+    #   Biffbot::Article('http://www.nytimes.com', timeout: 60) => {SOME_HASH}
     def initialize url, options = {}, token = Biffbot.token
       parse(token, 'article', url, options)
     end

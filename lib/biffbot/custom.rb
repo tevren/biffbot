@@ -9,7 +9,7 @@ module Biffbot
     # @param token [String] Override Biffbot.token with another token
     # @return [Hash]
     # @example
-    # Biffbot::Custom('http://www.nytimes.com', 'my_cool_nytimes_api', timeout: 60) => {SOME_HASH}Custom
+    #   Biffbot::Custom('http://www.nytimes.com', 'my_cool_nytimes_api', timeout: 60) => {SOME_HASH}
     def initialize url, api_name, options = {}, token = Biffbot.token
       options[:api_name] = api_name
       parse(token, 'custom', url, options)
