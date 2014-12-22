@@ -1,0 +1,33 @@
+Encoding:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: true
+
+Style/MethodLength:
+  Enabled: false
+
+LineLength:
+  Enabled: false
+
+MethodDefParentheses:
+  EnforcedStyle: require_no_parentheses
+
+SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+SignalException:
+  EnforcedStyle: only_raise
+
+Documentation:
+  Enabled: false
+
+ClassAndModuleChildren:
+  Enabled: false
+
+# This rule doesn't work so well with multi argument exception ctors
+RaiseArgs:
+  Enabled: false
+
+EachWithObject:
+  Enabled: false
