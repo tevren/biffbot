@@ -5,7 +5,7 @@ require 'cgi'
 module Biffbot
   class Base < Hash
     include Hashie::Extensions::Coercion
-    def parse token = '', type = 'article', url = '', options = {}
+    def parse token = Biffbot.token, type = 'article', url = '', options = {}
       url = parse_options(options, generate_url(CGI.escape(url), token, type, options[:version]))
       JSON.parse(HTTParty.get(url).body).each_pair do |key, value|
         self[key] = value

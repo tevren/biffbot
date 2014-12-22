@@ -3,9 +3,9 @@ require 'spec_helper'
 # currently tests v2 article api
 describe Biffbot::Article do
   before :each do
-    token = ENV['DIFFBOT_DEV_TOKEN']
     url = 'http://www.huffingtonpost.ca/2012/10/11/amanda-todd-teen-bullying-suicide-youtube_n_1959668.html'
-    @article = Biffbot::Article.new(token, url)
+    Biffbot.token = ENV['DIFFBOT_DEV_TOKEN']
+    @article = Biffbot::Article.new(url)
   end
 
   describe 'Biffbot::Article.parse' do

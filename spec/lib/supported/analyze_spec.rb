@@ -3,9 +3,9 @@ require 'spec_helper'
 # more tests to come...
 describe Biffbot::Analyze do
   before :each do
-    token = ENV['DIFFBOT_DEV_TOKEN']
     url = 'http://www.huffingtonpost.ca/2012/10/11/amanda-todd-teen-bullying-suicide-youtube_n_1959668.html'
-    @article = Biffbot::Analyze.new(token, url, type: 'article')
+    Biffbot.token = ENV['DIFFBOT_DEV_TOKEN']
+    @article = Biffbot::Analyze.new(url, type: 'article')
   end
 
   describe 'analyze an article' do

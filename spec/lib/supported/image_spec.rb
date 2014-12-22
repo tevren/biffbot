@@ -3,9 +3,9 @@ require 'spec_helper'
 # currently tests v2 image api
 describe Biffbot::Image do
   before :each do
-    token = ENV['DIFFBOT_DEV_TOKEN']
     url = 'http://www.huffingtonpost.ca/2012/10/11/amanda-todd-teen-bullying-suicide-youtube_n_1959668.html'
-    @image = Biffbot::Image.new(token, url)
+    Biffbot.token = ENV['DIFFBOT_DEV_TOKEN']
+    @image = Biffbot::Image.new(url)
   end
 
   describe 'Biffbot::Image.parse' do

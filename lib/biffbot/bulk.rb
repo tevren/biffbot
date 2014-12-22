@@ -5,7 +5,7 @@ require 'cgi'
 module Biffbot
   class Bulk < Base
     include Hashie::Extensions::Coercion
-    def initialize token
+    def initialize token = Biffbot.token
       @token = token
     end
 

@@ -3,9 +3,9 @@ require 'spec_helper'
 # currently tests v2 product api
 describe Biffbot::Product do
   before :each do
-    token = ENV['DIFFBOT_DEV_TOKEN']
     url = 'http://www.amazon.com/Google-Chromecast-Streaming-Media-Player/dp/B00DR0PDNE/'
-    @product = Biffbot::Product.new(token, url)
+    Biffbot.token = ENV['DIFFBOT_DEV_TOKEN']
+    @product = Biffbot::Product.new(url)
   end
 
   describe 'Biffbot::Product.parse' do
