@@ -35,15 +35,23 @@ Or install it yourself as:
     * Biffbot::Bulk
     * Biffbot::Custom
 
+## To do
+
+* Add support for Diffbot Crawlbot API
+* Add support for Diffbot Search API
+* Add support for Diffbot beta APIs (video/discussion)
+
 ## Testing
 
-1. create a .env file in the following format:
+1. Create a .env file in the following format:
 
         DIFFBOT_DEV_TOKEN=YOUR_DIFFBOT_TOKEN
 
-2. run the tests via rake
+2. Run the tests via rake
 
         rake test
+
+3. Style matters, check your rubocop output. 
 
 ## Contributing
 
