@@ -31,7 +31,7 @@ NEW METHOD:
     require 'biffbot'
     token = YOUR_DEVELOPER_TOKEN
     analyze = Biffbot::Analyze.new(token, url, {:type => 'article'})
-    article = Biffbot::Article.new(@token,url,some_hash_of_options)
+    article = Biffbot::Article.new(token,url,some_hash_of_options)
 
 
 The available classes are: 
