@@ -1,40 +1,42 @@
 require 'httparty'
 require 'json'
-
+require 'hashie'
+require 'cgi'
 module Biffbot
-	class Base
-		def initialize(token) 
-			@token = token
-		end
-		def parse(url,options={})
-			@url = url
-			output = Hash.new
-			request = "http://www.diffbot.com/api/article?token=#{@token}&url=#{@url}"
-			options.each_pair do |key,value|
-				if key.match(/html|dontStripAds|tags|comments|summary|stats/) && value == true
-					request = request + "&#{key}"
-				end
-			end
-			response = HTTParty.get(request)
-			response.parsed_response.each_pair do |key,value|
-				output[key.to_sym] = value
-			end
-			return output
-		end
-		def batch(urls=[],options={})
-			output = []
-			request = "http://www.diffbot.com/api/batch"
-      		batch = urls.map do |url|
-    			{ :method => "GET", :relative_url => "/api/article?token=#{@token}&url=#{url}" }
-      		end
-     		options = { :body => {:token => @token, :batch => batch.to_json }, :basic_auth => @auth }
-			response = HTTParty.post(request, options)
-      
-			JSON.parse(response.parsed_response).each do |response_dict|
-        		puts response_dict.inspect
-				output << JSON.parse(response_dict["body"])
-			end
-			return output
-    	end
-	end
+  class Base < Hash
+    include Hashie::Extensions::Coercion
+    def parse token = '', type = 'article', url = '', options = {}
+      url = parse_options(options, generate_url(CGI.escape(url), token, type, options[:version]))
+      JSON.parse(HTTParty.get(url).body).each_pair do |key, value|
+        self[key] = value
+      end
+    end
+
+    def generate_url url, token, type, version
+      case type
+      when 'analyze'
+        url = "http://api.diffbot.com/v3/#{type}?token=#{token}&url=#{url}"
+      when 'custom'
+        url = "http://api.diffbot.com/v3/#{options[:api_name]}?token=#{token}&url=#{url}"
+      when 'article', 'image', 'product'
+        url = "http://api.diffbot.com/v2/#{type}?token=#{token}&url=#{url}"
+        url = "http://api.diffbot.com/#{version}/#{type}?token=#{token}&url=#{url}" if version == 'v2' || version == 'v3'
+      end
+      url
+    end
+
+    def parse_options options = {}, request = ''
+      options.each do |opt, value|
+        case opt
+        when :timeout, :paging, :mode
+          request += "&#{opt}=#{value}"
+        when :callback, :stats
+          request += "&#{opt}"
+        when :fields
+          request += "&#{opt}=" + value.join(',') if value.is_a?(Array)
+        end
+      end
+      request
+    end
+  end
 end
