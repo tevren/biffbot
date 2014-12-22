@@ -1,2 +1,2 @@
-require 'biffbot/base'
+require 'biffbot'
 require 'json'
