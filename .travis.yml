@@ -1,0 +1,22 @@
+language: ruby
+rvm:
+- 2.1.0
+- ruby-head
+script: bundle exec rake test
+notifications:
+  email:
+    recipients:
+    - anurag@mohanty.io
+    on_success:
+    - always|never|change
+    on_failure:
+    - always|never|change
+deploy:
+  provider: rubygems
+  api_key:
+    secure: rzBfMCE2wPxagwWN6ttk5IwCdnX5cI+QRDN9gBBjCWOsqn8cZQDzEfBs1S8zM79idbGY9bV62N8Dr5SgLitYc71YN8HnvNFBg9jjAlvu6ytS4o9L3LroS/cPPpDCgerqTli7Ol9XSjvN0KKHAeFyOZds8qSrn1vvqELnMDn9dOc=
+  gem: biffbot
+  on:
+    tags: true
+    all_branches: true
+    repo: tevren/biffbot

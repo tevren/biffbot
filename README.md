@@ -1,4 +1,5 @@
 # Biffbot
+[![Build Status](https://travis-ci.org/tevren/biffbot.svg?branch=master)](https://travis-ci.org/tevren/biffbot)
 
 Ruby gem to connect to diffbot's APIs
 
