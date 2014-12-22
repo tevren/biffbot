@@ -5,6 +5,13 @@ require 'cgi'
 module Biffbot
   class Base < Hash
     include Hashie::Extensions::Coercion
+    # a new instance of Biffbot::Base
+    #
+    # @param token [String]  Override Biffbot.token with another token
+    # @param type [String] pass the class type you're working with
+    # @param url [String] The url of the page you're working with
+    # @param options [Hash] An hash of options
+    # @return [Hash]
     def parse token = Biffbot.token, type = 'article', url = '', options = {}
       url = parse_options(options, generate_url(CGI.escape(url), token, type, options[:version]))
       JSON.parse(HTTParty.get(url).body).each_pair do |key, value|
@@ -12,6 +19,13 @@ module Biffbot
       end
     end
 
+    # generate an url consisting of your api key and the endpoint you'd like to use
+    #
+    # @param url [String] The url to pass to diffbot
+    # @param options [Hash] An hash of options
+    # @param token [String] Diffbot API token
+    # @param type [String] API to use
+    # @return url [String] a formatted url with your api key, endpoint and input url
     def generate_url url, token, type, version
       case type
       when 'analyze'
@@ -25,6 +39,11 @@ module Biffbot
       url
     end
 
+    # add the options hash to your input url
+    #
+    # @param options [Hash] An hash of options
+    # @param request [String] The url to append options to
+    # @return url [String] a formatted url with options merged into the input url
     def parse_options options = {}, request = ''
       options.each do |opt, value|
         case opt
