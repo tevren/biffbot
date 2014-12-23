@@ -1,4 +1,5 @@
-# Biffbot [![Build Status](https://travis-ci.org/tevren/biffbot.svg?branch=master)](https://travis-ci.org/tevren/biffbot) [![Gem Version](https://badge.fury.io/rb/biffbot.svg)](http://badge.fury.io/rb/biffbot) [![Code Climate](https://codeclimate.com/github/tevren/biffbot/badges/gpa.svg)](https://codeclimate.com/github/tevren/biffbot) [![Test Coverage](https://codeclimate.com/github/tevren/biffbot/badges/coverage.svg)](https://codeclimate.com/github/tevren/biffbot)
+# Biffbot 
+[![Build Status](https://travis-ci.org/tevren/biffbot.svg?branch=master)](https://travis-ci.org/tevren/biffbot) [![Gem Version](https://badge.fury.io/rb/biffbot.svg)](http://badge.fury.io/rb/biffbot) [![Code Climate](https://codeclimate.com/github/tevren/biffbot/badges/gpa.svg)](https://codeclimate.com/github/tevren/biffbot) [![Test Coverage](https://codeclimate.com/github/tevren/biffbot/badges/coverage.svg)](https://codeclimate.com/github/tevren/biffbot) [![Inline docs](http://inch-ci.org/github/tevren/biffbot.svg?branch=master&style=flat)](http://inch-ci.org/github/tevren/biffbot)
 
 Ruby gem to connect to diffbot's APIs
 
