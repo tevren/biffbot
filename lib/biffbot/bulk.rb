@@ -15,7 +15,7 @@ module Biffbot
     # create a bulk job
     #
     # @param name [String]  Desired name for bulk job
-    # @param api_type [String] Desired API to use for urls
+    # @param api_type [String] Desired API to use for urls. This accepts options as query params to the regular article api.
     # @param urls [Array] An array of input urls to pass to bulk job
     # @param options [Hash] An hash of options
     # @return [Hash]
@@ -25,7 +25,10 @@ module Biffbot
       api_url = parse_options(options, api_url)
       endpoint = 'http://api.diffbot.com/v3/bulk'
       post_body = generate_post_body(name, api_url, urls, options)
-      JSON.parse(HTTParty.post(endpoint, body: post_body.to_json, headers: {'Content-Type' => 'application/json'}).body).each_pair do |k, v|
+
+      www_form_encoded_body = URI.encode_www_form(post_body)
+
+      JSON.parse(HTTParty.post(endpoint, body: www_form_encoded_body, headers: {'Content-Type' => 'application/x-www-form-urlencoded'}).body).each_pair do |k, v|
         self[k] = v
       end
     end
@@ -40,7 +43,8 @@ module Biffbot
     def generate_post_body name, api_url, urls = [], options = {}
       post_body = {token: @token, name: name, apiUrl: api_url, urls: urls}
       options.each do |key, value|
-        next unless %w(notifyEmail maxRounds notifyWebHook pageProcessPattern).include?(key.to_s)
+        valid_api_arguments = %w(token name urls apiUrl notifyEmail notifyWebHook repeat maxRounds pageProcessPattern)
+        next unless valid_api_arguments.include?(key.to_s)
         post_body[key] = value
       end
       post_body
