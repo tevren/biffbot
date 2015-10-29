@@ -43,7 +43,7 @@ module Biffbot
     def generate_post_body name, api_url, urls = [], options = {}
       post_body = {token: @token, name: name, apiUrl: api_url, urls: urls}
       options.each do |key, value|
-        valid_api_arguments = %w(token name urls apiUrl notifyEmail notifyWebHook repeat maxRounds pageProcessPattern)
+        valid_api_arguments = %w(token name urls apiUrl notifyEmail notifyWebhook repeat maxRounds pageProcessPattern)
         next unless valid_api_arguments.include?(key.to_s)
         post_body[key] = value
       end
