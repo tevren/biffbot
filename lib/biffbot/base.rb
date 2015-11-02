@@ -52,7 +52,7 @@ module Biffbot
         when :callback, :stats
           request += "&#{opt}"
         when :fields
-          request += "&#{opt}=" + value.join(',') if value.is_a?(Array)
+          request += "#{opt}=" + value.join(',') if value.is_a?(Array)
         end
       end
       request
