@@ -44,7 +44,6 @@ module Biffbot
     # @param request [String] The url to append options to
     # @return [String] a formatted url with options merged into the input url
     def parse_options options = {}, request = ''
-      request = '?' if request == ''
       options.each do |opt, value|
         case opt
         when :timeout, :paging, :mode
@@ -52,7 +51,7 @@ module Biffbot
         when :callback, :stats
           request += "&#{opt}"
         when :fields
-          request += "#{opt}=" + value.join(',') if value.is_a?(Array)
+          request += "?#{opt}=" + value.join(',') if value.is_a?(Array)
         end
       end
       request
