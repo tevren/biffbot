@@ -13,7 +13,8 @@ module Biffbot
     # @param options [Hash] An hash of options
     # @return [Hash]
     def parse token = Biffbot.token, type = 'article', url = '', options = {}
-      url = parse_options(options, generate_url(CGI.escape(url), token, type, options[:version]))
+      diffbot_url = generate_url(url, token, type, options[:version])
+      url = URI.escape(parse_options(options, diffbot_url))
       JSON.parse(HTTParty.get(url).body).each_pair do |key, value|
         self[key] = value
       end
@@ -28,14 +29,14 @@ module Biffbot
     def generate_url url, token, type, version
       case type
       when 'analyze'
-        url = "http://api.diffbot.com/v3/#{type}?token=#{token}&url=#{url}"
+        return_url = "http://api.diffbot.com/v3/#{type}?token=#{token}&url=#{url}"
       when 'custom'
-        url = "http://api.diffbot.com/v3/#{options[:api_name]}?token=#{token}&url=#{url}"
+        return_url = "http://api.diffbot.com/v3/#{options[:api_name]}?token=#{token}&url=#{url}"
       when 'article', 'image', 'product'
-        url = "http://api.diffbot.com/v2/#{type}?token=#{token}&url=#{url}"
-        url = "http://api.diffbot.com/#{version}/#{type}?token=#{token}&url=#{url}" if version == 'v2' || version == 'v3'
+        return_url = "http://api.diffbot.com/v2/#{type}?token=#{token}&url=#{url}"
+        return_url = "http://api.diffbot.com/#{version}/#{type}?token=#{token}&url=#{url}" if version == 'v2' || version == 'v3'
       end
-      url
+      return_url
     end
 
     # add the options hash to your input url
@@ -45,13 +46,13 @@ module Biffbot
     # @return [String] a formatted url with options merged into the input url
     def parse_options options = {}, request = ''
       options.each do |opt, value|
-        case opt
-        when :timeout, :paging, :mode
-          request += "&#{opt}=#{value}"
-        when :callback, :stats
+        case value
+        when NilClass
           request += "&#{opt}"
-        when :fields
-          request += "?#{opt}=" + value.join(',') if value.is_a?(Array)
+        when Array
+          request += "&#{opt}=#{value.join(',')}"
+        else
+          request += "&#{opt}=#{value}"
         end
       end
       request
