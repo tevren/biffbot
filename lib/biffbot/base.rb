@@ -25,13 +25,14 @@ module Biffbot
     # @return [Hash]
     def parse token = Biffbot.token, type = 'article', url = '', options = {}
       options[:version] ||= 'v3'
+      http_options = options.delete(:http_options) || {}
 
       diffbot_query_params[:token] = token
 
       generate_url(url, token, type, options[:version])
       parse_options(options)
 
-      response = HTTParty.get(diffbot_url)
+      response = HTTParty.get(diffbot_url, http_options)
 
       return {} if response.nil?
 
