@@ -56,12 +56,15 @@ Or install it yourself as:
 
 ## Updating
 
-Create a branch off of master and make your changes.
-- eg: ```git checkout -b fix_bulk```
-Create a pull request for review.
-Once reviewed and merged, pull the latest master and update version.rb. The major, minor and patch versions match the version of Biffbot itself and should not be changed except for updates. Update the number at the end.
-Commit the changes and push, ```git commit -m "Release vX.X.X.descriptive.name" && git push origin master```.
-Tag the release and push, git tag vX.X.X.descriptive.name && git push --tags.
+- Create a branch off of master and make your changes.
+ - eg: ```git checkout -b fix_bulk```
+- Create a pull request for review.
+- Once reviewed and merged, pull the latest master and update version.rb. The major, minor and patch versions match the version of Biffbot itself and should not be changed except for updates. Update the number at the end.
+- Commit the changes and push
+ - ```git commit -m "Release vX.X.X.descriptive.name" && git push origin master```
+- Tag the release and push, git tag vX.X.X.descriptive.name && git push --tags.
  - eg: v1.2.13.fix.bulk
-Build the gem via ```gem build biffbot.gemspec```.
-Push the gem to Gemfury ```fury push biffbot-1.2.13.fix.pre.bulk.gem --as=doximity```.
+- Build the gem
+ - ```gem build biffbot.gemspec```.
+- Push the gem to Gemfury 
+ - ```fury push biffbot-1.2.13.fix.pre.bulk.gem --as=doximity```.
