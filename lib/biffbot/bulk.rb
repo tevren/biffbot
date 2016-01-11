@@ -2,6 +2,7 @@ require 'httparty'
 require 'json'
 require 'hashie'
 require 'cgi'
+
 module Biffbot
   class Bulk < Base
     include Hashie::Extensions::Coercion
@@ -22,10 +23,9 @@ module Biffbot
     def create_job name, api_type, urls = [], options = {}
       api_url = "http://api.diffbot.com/v2/#{api_type}"
       api_url = "http://api.diffbot.com/#{options[:version]}/#{api_type}" if options[:version] == 'v2' || options[:version] == 'v3'
-      api_url = parse_options(options, api_url)
+      api_url = parse_options(options, api_url).display_uri.to_s
       endpoint = 'http://api.diffbot.com/v3/bulk'
       post_body = generate_post_body(name, api_url, urls, options)
-
       www_form_encoded_body = URI.encode_www_form(post_body)
 
       JSON.parse(HTTParty.post(endpoint, body: www_form_encoded_body, headers: {'Content-Type' => 'application/x-www-form-urlencoded'}).body).each_pair do |k, v|

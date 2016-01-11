@@ -65,6 +65,8 @@ module Biffbot
     # @param request [String] The url to append options to
     # @return [String] a formatted url with options merged into the input url
     def parse_options options = {}, request = ''
+      uri = request.present? ? Addressable::URI.parse(request) : diffbot_url
+
       options.each do |opt, value|
         if opt.is_a?(Array)
           diffbot_query_params[opt.to_sym] = diffbot_query_params[opt.to_sym].push(value).flatten.uniq
@@ -77,9 +79,9 @@ module Biffbot
         diffbot_query_params[key] = value.join(',') if value.is_a?(Array)
       end
 
-      diffbot_url.query_values = diffbot_query_params
+      uri.query_values = diffbot_query_params
 
-      diffbot_url
+      uri
     end
   end
 end
