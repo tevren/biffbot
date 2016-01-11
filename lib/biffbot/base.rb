@@ -2,9 +2,20 @@ require 'httparty'
 require 'json'
 require 'hashie'
 require 'cgi'
+require 'addressable/uri'
+
 module Biffbot
   class Base < Hash
     include Hashie::Extensions::Coercion
+
+    def diffbot_url
+      @diffbot_url ||= Addressable::URI.new(host: 'api.diffbot.com', scheme: 'https')
+    end
+
+    def diffbot_query_params
+      @diffbot_query_params ||= Hash.new
+    end
+
     # a new instance of Biffbot::Base
     #
     # @param token [String]  Override Biffbot.token with another token
@@ -13,8 +24,19 @@ module Biffbot
     # @param options [Hash] An hash of options
     # @return [Hash]
     def parse token = Biffbot.token, type = 'article', url = '', options = {}
-      url = parse_options(options, generate_url(CGI.escape(url), token, type, options[:version]))
-      JSON.parse(HTTParty.get(url).body).each_pair do |key, value|
+      options[:version] ||= 'v3'
+      http_options = options.delete(:http_options) || {}
+
+      diffbot_query_params[:token] = token
+
+      generate_url(url, token, type, options[:version])
+      parse_options(options)
+
+      response = HTTParty.get(diffbot_url, http_options)
+
+      return {} if response.nil?
+
+      JSON.parse(response.body).each_pair do |key, value|
         self[key] = value
       end
     end
@@ -26,16 +48,15 @@ module Biffbot
     # @param type [String] API to use
     # @return [String] a formatted url with your api key, endpoint and input url
     def generate_url url, token, type, version
-      case type
-      when 'analyze'
-        url = "http://api.diffbot.com/v3/#{type}?token=#{token}&url=#{url}"
-      when 'custom'
-        url = "http://api.diffbot.com/v3/#{options[:api_name]}?token=#{token}&url=#{url}"
-      when 'article', 'image', 'product'
-        url = "http://api.diffbot.com/v2/#{type}?token=#{token}&url=#{url}"
-        url = "http://api.diffbot.com/#{version}/#{type}?token=#{token}&url=#{url}" if version == 'v2' || version == 'v3'
+      diffbot_query_params[:token] = token
+      diffbot_query_params[:url] = url
+
+      if type == 'custom'
+        diffbot_url.path = "v3/#{options[:api_name]}"
+      else
+        diffbot_url.path = "#{version}/#{type}"
       end
-      url
+
     end
 
     # add the options hash to your input url
@@ -44,17 +65,23 @@ module Biffbot
     # @param request [String] The url to append options to
     # @return [String] a formatted url with options merged into the input url
     def parse_options options = {}, request = ''
+      uri = request.present? ? Addressable::URI.parse(request) : diffbot_url
+
       options.each do |opt, value|
-        case opt
-        when :timeout, :paging, :mode
-          request += "&#{opt}=#{value}"
-        when :callback, :stats
-          request += "&#{opt}"
-        when :fields
-          request += "&#{opt}=" + value.join(',') if value.is_a?(Array)
+        if opt.is_a?(Array)
+          diffbot_query_params[opt.to_sym] = diffbot_query_params[opt.to_sym].push(value).flatten.uniq
+        else
+          diffbot_query_params[opt.to_sym] = value
         end
       end
-      request
+
+      diffbot_query_params.each do |key, value|
+        diffbot_query_params[key] = value.join(',') if value.is_a?(Array)
+      end
+
+      uri.query_values = diffbot_query_params
+
+      uri
     end
   end
 end

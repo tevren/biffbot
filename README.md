@@ -54,10 +54,17 @@ Or install it yourself as:
 
 3. Style matters, check your rubocop output. 
 
-## Contributing
+## Updating
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+- Create a branch off of master and make your changes.
+ - eg: ```git checkout -b fix_bulk```
+- Create a pull request for review.
+- Once reviewed and merged, pull the latest master and update version.rb. The major, minor and patch versions match the version of Biffbot itself and should not be changed except for updates. Update the number at the end.
+- Commit the changes and push
+ - ```git commit -m "Release vX.X.X.descriptive.name" && git push origin master```
+- Tag the release and push, git tag vX.X.X.descriptive.name && git push --tags.
+ - eg: v1.2.13.fix.bulk
+- Build the gem
+ - ```gem build biffbot.gemspec```.
+- Push the gem to Gemfury 
+ - ```fury push biffbot-1.2.13.fix.pre.bulk.gem --as=doximity```.
