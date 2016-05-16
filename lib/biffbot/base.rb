@@ -28,14 +28,14 @@ module Biffbot
     def generate_url url, token, type, version
       case type
       when 'analyze'
-        url = "http://api.diffbot.com/v3/#{type}?token=#{token}&url=#{url}"
+        api_url = "http://api.diffbot.com/v3/#{type}?token=#{token}&url=#{url}"
       when 'custom'
-        url = "http://api.diffbot.com/v3/#{options[:api_name]}?token=#{token}&url=#{url}"
+        api_url = "http://api.diffbot.com/v3/#{options[:api_name]}?token=#{token}&url=#{url}"
       when 'article', 'image', 'product'
-        url = "http://api.diffbot.com/v2/#{type}?token=#{token}&url=#{url}"
-        url = "http://api.diffbot.com/#{version}/#{type}?token=#{token}&url=#{url}" if version == 'v2' || version == 'v3'
+        api_url = "http://api.diffbot.com/v3/#{type}?token=#{token}&url=#{url}"
+        api_url = "http://api.diffbot.com/#{version}/#{type}?token=#{token}&url=#{url}" if version == 'v2'
       end
-      url
+      api_url
     end
 
     # add the options hash to your input url
