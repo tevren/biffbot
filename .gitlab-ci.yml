@@ -20,8 +20,8 @@ before_script:
   # - apt-get update -q && apt-get install nodejs -yqq
   - bundle config set path 'vendor' # Install dependencies into ./vendor/ruby
   - bundle install -j $(nproc)
-  - bundle install rubocop
-  - bundle install rspec
+  - gem install rubocop
+  - gem install rspec
 
 # Optional - Delete if not using `rubocop`
 rubocop:
