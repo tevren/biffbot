@@ -24,5 +24,4 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency('rubocop')
   gem.add_development_dependency('dotenv')
   gem.add_development_dependency('yard')
-  gem.add_development_dependency('codeclimate-test-reporter')
 end
