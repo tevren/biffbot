@@ -16,9 +16,9 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(/^bin\//) { |f| File.basename(f) }
   gem.test_files    = gem.files.grep(/^(test|spec|features)\//)
   gem.require_paths = ['lib']
-  gem.add_dependency('httparty', '~> 0.13')
-  gem.add_dependency('json', '~> 1.8')
-  gem.add_dependency('hashie', '~> 3.3')
+  gem.add_dependency('httparty')
+  gem.add_dependency('json')
+  gem.add_dependency('hashie')
   gem.add_development_dependency('rspec')
   gem.add_development_dependency('rake')
   gem.add_development_dependency('rubocop')
