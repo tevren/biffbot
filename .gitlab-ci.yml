@@ -2,7 +2,6 @@
 # https://docs.gitlab.com/ee/development/cicd/templates.html
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Ruby.gitlab-ci.yml
-
 # Official language image. Look for the different tagged releases at:
 # https://hub.docker.com/r/library/ruby/tags/
 image: ruby:latest
